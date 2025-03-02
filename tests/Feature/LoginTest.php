@@ -46,4 +46,10 @@ class LoginTest extends TestCase
         $response->assertUnauthorized();
         $this->assertGuest();
     }
+
+    public function test_should_reject_if_email_is_not_in_email_format() {
+        $this->credentials['email'] = 'damon.salvatore';
+        $response = $this->postJson(route('login.store'), $this->credentials);
+        $response->assertJsonValidationErrorFor('email');
+    }
 }
