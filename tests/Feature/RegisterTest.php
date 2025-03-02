@@ -32,4 +32,11 @@ class RegisterTest extends TestCase
         $hashedPassword = User::whereEmail($this->credentials['email'])->first()->password;
         $this->assertTrue(Hash::check($password, $hashedPassword));
     }
+
+    public function test_should_reject_if_email_is_already_used() {
+        User::create($this->credentials);
+        $response = $this->postJson(route('auth.register'), $this->credentials);
+
+        $response->assertJsonValidationErrorFor('email');
+    }
 }
