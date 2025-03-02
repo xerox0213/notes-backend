@@ -39,4 +39,11 @@ class LoginTest extends TestCase
         $response->assertUnauthorized();
         $this->assertGuest();
     }
+
+    public function test_should_reject_if_invalid_password() {
+        $this->credentials['password'] = 'iloveyoucaroline';
+        $response = $this->postJson(route('login.store'), $this->credentials);
+        $response->assertUnauthorized();
+        $this->assertGuest();
+    }
 }
