@@ -36,7 +36,12 @@ class RegisterTest extends TestCase
     public function test_should_reject_if_email_is_already_used() {
         User::create($this->credentials);
         $response = $this->postJson(route('auth.register'), $this->credentials);
+        $response->assertJsonValidationErrorFor('email');
+    }
 
+    public function test_should_reject_if_email_is_not_in_email_format() {
+        $this->credentials['email'] = 'damon.salvatore';
+        $response = $this->postJson(route('auth.register'), $this->credentials);
         $response->assertJsonValidationErrorFor('email');
     }
 }
