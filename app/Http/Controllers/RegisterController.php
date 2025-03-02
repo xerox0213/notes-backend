@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 
-class AuthController extends Controller
+class RegisterController extends Controller
 {
-    public function register(RegisterRequest $request) {
+    public function store(RegisterRequest $request) {
         $credentials = $request->validated();
         $credentials['password'] = bcrypt($credentials['password']);
         User::create($credentials);

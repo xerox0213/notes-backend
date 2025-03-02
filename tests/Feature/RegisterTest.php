@@ -19,7 +19,7 @@ class RegisterTest extends TestCase
     ];
 
     public function test_should_register() {
-        $response = $this->postJson(route('auth.register'), $this->credentials);
+        $response = $this->postJson(route('register.store'), $this->credentials);
 
         $response->assertNoContent();
         $this->assertDatabaseHas('users', [
@@ -34,31 +34,31 @@ class RegisterTest extends TestCase
 
     public function test_should_reject_if_email_is_already_used() {
         User::create($this->credentials);
-        $response = $this->postJson(route('auth.register'), $this->credentials);
+        $response = $this->postJson(route('register.store'), $this->credentials);
         $response->assertJsonValidationErrorFor('email');
     }
 
     public function test_should_reject_if_email_is_not_in_email_format() {
         $this->credentials['email'] = 'damon.salvatore';
-        $response = $this->postJson(route('auth.register'), $this->credentials);
+        $response = $this->postJson(route('register.store'), $this->credentials);
         $response->assertJsonValidationErrorFor('email');
     }
 
     public function test_should_reject_if_first_name_is_not_at_least_three_chars_long() {
         $this->credentials['first_name'] = 'Da';
-        $response = $this->postJson(route('auth.register'), $this->credentials);
+        $response = $this->postJson(route('register.store'), $this->credentials);
         $response->assertJsonValidationErrorFor('first_name');
     }
 
     public function test_should_reject_if_last_name_is_not_at_least_three_chars_long() {
         $this->credentials['last_name'] = 'Sa';
-        $response = $this->postJson(route('auth.register'), $this->credentials);
+        $response = $this->postJson(route('register.store'), $this->credentials);
         $response->assertJsonValidationErrorFor('last_name');
     }
 
     public function test_should_reject_if_password_is_not_at_least_three_chars_long() {
         $this->credentials['password'] = 'il';
-        $response = $this->postJson(route('auth.register'), $this->credentials);
+        $response = $this->postJson(route('register.store'), $this->credentials);
         $response->assertJsonValidationErrorFor('password');
     }
 }
