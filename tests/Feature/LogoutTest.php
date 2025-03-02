@@ -13,8 +13,8 @@ class LogoutTest extends TestCase
     public function test_should_logout()
     {
         $user = User::factory()->create();
-        $response = $this->actingAs($user)->deleteJson(route('auth.logout'));
+        $response = $this->actingAs($user,'web')->deleteJson(route('auth.logout'));
         $response->assertNoContent();
-        $this->assertGuest();
+        $this->assertGuest('web');
     }
 }
