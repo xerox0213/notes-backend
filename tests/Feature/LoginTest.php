@@ -32,4 +32,11 @@ class LoginTest extends TestCase
         $response->assertNoContent();
         $this->assertAuthenticatedAs($this->user);
     }
+
+    public function test_should_reject_if_invalid_email() {
+        $this->credentials['email'] = 'damon.salvatore@human.com';
+        $response = $this->postJson(route('login.store'), $this->credentials);
+        $response->assertUnauthorized();
+        $this->assertGuest();
+    }
 }
