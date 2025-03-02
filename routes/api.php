@@ -9,7 +9,6 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::apiResource('register', RegisterController::class)->only('store');
-
-Route::apiResource('login', LoginController::class)->only('store');
+Route::post('/register', [RegisterController::class, 'store'])->name('register.store');
+Route::post('/login', [LoginController::class, 'store'])->name('login.store');
 
