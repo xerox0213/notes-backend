@@ -14,4 +14,9 @@ class Note extends Model
         "title",
         "content"
     ];
+
+    public function folder(): BelongsTo
+    {
+        return $this->belongsTo(Folder::class);
+    }
 }
