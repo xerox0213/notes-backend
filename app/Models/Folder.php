@@ -12,4 +12,9 @@ class Folder extends Model
     ];
 
     public $timestamps = false;
+
+    public function notes(): HasMany
+    {
+        return $this->hasMany(Note::class);
+    }
 }
