@@ -27,4 +27,10 @@ class GetUserFoldersTest extends TestCase
                 ]
             ]);
     }
+
+    public function test_should_reject_if_unauthenticated()
+    {
+        $response = $this->getJson(route('folders.index'));
+        $response->assertUnauthorized();
+    }
 }
