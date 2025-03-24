@@ -16,5 +16,5 @@ Route::middleware('auth:sanctum')->group(function () {
         return $request->user();
     });
     Route::delete('/logout', [AuthController::class, 'logout'])->name('auth.logout');
-    Route::apiResource("folders", FolderController::class)->only('index', 'destroy');
+    Route::apiResource("folders", FolderController::class)->only('index', 'destroy', 'update');
 });

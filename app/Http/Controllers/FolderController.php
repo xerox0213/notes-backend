@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateFolderRequest;
 use App\Models\Folder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
@@ -18,6 +19,14 @@ class FolderController extends Controller
         Gate::authorize('delete', $folder);
         $folder->notes()->delete();
         $folder->delete();
+        return response()->noContent();
+    }
+
+    public function update(Folder $folder, UpdateFolderRequest $request)
+    {
+        Gate::authorize('update', $folder);
+        $folder->name = $request->safe()->input('name');
+        $folder->save();
         return response()->noContent();
     }
 }

@@ -14,4 +14,12 @@ class FolderPolicy
     {
         return $user->id === $folder->user_id;
     }
+
+    /**
+     * Determine whether the user can update the model.
+     */
+    public function update(User $user, Folder $folder): bool
+    {
+        return $user->id === $folder->user_id;
+    }
 }
