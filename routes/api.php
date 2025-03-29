@@ -19,5 +19,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/logout', [AuthController::class, 'logout'])->name('auth.logout');
     Route::apiResource("folders", FolderController::class)->only('index', 'destroy', 'update');
     Route::apiResource('folders.notes', NoteController::class)->only('store');
-    Route::apiResource('notes', NoteController::class)->only('destroy');
+    Route::apiResource('notes', NoteController::class)->only('update', 'destroy');
 });

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreNoteRequest;
+use App\Http\Requests\UpdateNoteRequest;
 use App\Models\Folder;
 use App\Models\Note;
 use Illuminate\Support\Facades\Gate;
@@ -17,6 +18,14 @@ class NoteController extends Controller
         Gate::authorize('create', $note);
         $note->save();
         return response()->json($note, 201);
+    }
+
+    public function update(Note $note, UpdateNoteRequest $request)
+    {
+        Gate::authorize('update', $note);
+        $noteData = $request->validated();
+        $note->update($noteData);
+        return response()->json($note);
     }
 
     public function destroy(Note $note)
