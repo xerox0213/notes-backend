@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\FolderController;
+use App\Http\Controllers\NoteController;
 use App\Http\Middleware\GuestMiddleware;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -17,4 +18,5 @@ Route::middleware('auth:sanctum')->group(function () {
     });
     Route::delete('/logout', [AuthController::class, 'logout'])->name('auth.logout');
     Route::apiResource("folders", FolderController::class)->only('index', 'destroy', 'update');
+    Route::apiResource('folders.notes', NoteController::class)->only('store');
 });
