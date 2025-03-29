@@ -27,11 +27,10 @@ class NoteController extends Controller
 
     public function store(Folder $folder, StoreNoteRequest $request)
     {
+        Gate::authorize('view', $folder);
         $noteData = $request->validated();
         $noteData['folder_id'] = $folder->id;
-        $note = Note::make($noteData);
-        Gate::authorize('view', $folder);
-        $note->save();
+        $note = Note::create($noteData);
         return response()->json($note, 201);
     }
 
