@@ -14,7 +14,8 @@ class Note extends Model
 
     protected $fillable = [
         "title",
-        "content"
+        "content",
+        'folder_id'
     ];
 
     public function folder(): BelongsTo
