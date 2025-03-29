@@ -39,7 +39,7 @@ class NoteController extends Controller
         Gate::authorize('update', $note);
         $noteData = $request->validated();
         $note->update($noteData);
-        return response()->json($note);
+        return response()->json(new ShowNoteResource($note));
     }
 
     public function destroy(Note $note)
