@@ -21,4 +21,9 @@ class NotePolicy
     {
         return $note->folder->user_id == $user->id;
     }
+
+    public function view(User $user, Note $note)
+    {
+        return $note->folder->user_id == $user->id;
+    }
 }
