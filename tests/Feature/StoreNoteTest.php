@@ -12,7 +12,7 @@ class StoreNoteTest extends TestCase
     use RefreshDatabase;
 
     private $noteData = [
-        'title' => 'My title note',
+        'title' => 'My long long long long long title note',
         'content' => 'My content note'
     ];
 
@@ -25,8 +25,8 @@ class StoreNoteTest extends TestCase
             ->actingAs($user)
             ->postJson(route('folders.notes.store', ['folder' => $folder->id]), $this->noteData);
 
+        $response->assertCreated()->assertJson(['title' => 'My long long...']);
         $this->noteData['folder_id'] = $folder->id;
-        $response->assertCreated()->assertJson($this->noteData);
         $this->assertDatabaseHas('notes', $this->noteData);
     }
 

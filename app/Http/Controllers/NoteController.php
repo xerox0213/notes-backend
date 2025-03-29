@@ -31,7 +31,7 @@ class NoteController extends Controller
         $noteData = $request->validated();
         $noteData['folder_id'] = $folder->id;
         $note = Note::create($noteData);
-        return response()->json($note, 201);
+        return response()->json(new IndexNoteResource($note), 201);
     }
 
     public function update(Note $note, UpdateNoteRequest $request)
