@@ -14,7 +14,7 @@ class ShowNoteTest extends TestCase
     public function test_should_show_note(): void
     {
         $note = Note::factory()->create();
-        $user = $note->folder->user;
+        $user = $note->user;
 
         $response = $this->actingAs($user)->getJson(route('notes.show', ['note' => $note->id]));
 

@@ -13,13 +13,19 @@ class Note extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        "title",
-        "content",
-        'folder_id'
+        'title',
+        'content',
+        'folder_id',
+        'user_id'
     ];
 
     public function folder(): BelongsTo
     {
         return $this->belongsTo(Folder::class);
+    }
+
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
     }
 }

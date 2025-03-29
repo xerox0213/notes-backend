@@ -18,7 +18,7 @@ class UpdateNoteTest extends TestCase
     public function test_should_update_note()
     {
         $note = Note::factory()->create();
-        $user = $note->folder->user;
+        $user = $note->user;
 
         $response = $this->actingAs($user)->patch(route('notes.update', ['note' => $note]), $this->newNoteData);
 

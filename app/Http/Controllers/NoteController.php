@@ -30,6 +30,7 @@ class NoteController extends Controller
         Gate::authorize('view', $folder);
         $noteData = $request->validated();
         $noteData['folder_id'] = $folder->id;
+        $noteData['user_id'] = $request->user()->id;
         $note = Note::create($noteData);
         return response()->json(new IndexNoteResource($note), 201);
     }

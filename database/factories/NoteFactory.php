@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Folder;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -21,6 +22,7 @@ class NoteFactory extends Factory
             'title' =>  fake()->title(),
             'content' => fake()->text(20),
             'folder_id' => Folder::factory(),
+            'user_id' => User::factory()
         ];
     }
 }

@@ -14,7 +14,7 @@ class DestroyNoteTest extends TestCase
     public function test_should_not_soft_delete_note()
     {
         $note = Note::factory()->create();
-        $user = $note->folder->user;
+        $user = $note->user;
 
         $response = $this->actingAs($user)->deleteJson(route('notes.destroy', ['note' => $note->id]));
 

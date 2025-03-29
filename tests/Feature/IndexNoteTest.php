@@ -14,11 +14,12 @@ class IndexNoteTest extends TestCase
     public function test_should_retrieve_notes()
     {
         $otherFolder = Folder::factory()->create();
-        Note::factory()->count(10)->for($otherFolder)->create();
+        $otherUser = $otherFolder->user;
+        Note::factory()->count(10)->for($otherFolder)->for($otherUser)->create();
 
         $myFolder = Folder::factory()->create();
-        Note::factory()->count(5)->for($myFolder)->create();
         $me = $myFolder->user;
+        Note::factory()->count(5)->for($myFolder)->for($me)->create();
 
         $response = $this->actingAs($me)->getJson(route('folders.notes.index', ['folder' => $myFolder->id]));
 
@@ -28,11 +29,12 @@ class IndexNoteTest extends TestCase
     public function test_should_not_retrieve_if_user_does_not_own_notes()
     {
         $otherFolder = Folder::factory()->create();
-        Note::factory()->for($otherFolder)->count(10)->create();
         $otherUser = $otherFolder->user;
+        Note::factory()->for($otherFolder)->for($otherUser)->count(10)->create();
 
         $myFolder = Folder::factory()->create();
-        Note::factory()->count(5)->for($myFolder)->create();
+        $me = $myFolder->user;
+        Note::factory()->count(5)->for($myFolder)->for($me)->create();
 
         $response = $this->actingAs($otherUser)->getJson(route('folders.notes.index', ['folder' => $myFolder->id]));
 
