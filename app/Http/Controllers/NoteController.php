@@ -18,4 +18,11 @@ class NoteController extends Controller
         $note->save();
         return response()->json($note, 201);
     }
+
+    public function destroy(Note $note)
+    {
+        Gate::authorize('delete', $note);
+        $note->delete();
+        return response()->noContent();
+    }
 }

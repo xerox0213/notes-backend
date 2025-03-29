@@ -11,4 +11,9 @@ class NotePolicy
     {
         return $note->folder->user_id == $user->id;
     }
+
+    public function delete(User $user, Note $note)
+    {
+        return $note->folder->user_id == $user->id;
+    }
 }
