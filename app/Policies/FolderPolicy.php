@@ -7,6 +7,11 @@ use App\Models\User;
 
 class FolderPolicy
 {
+    public function view(User $user, Folder $folder)
+    {
+        return $user->id == $folder->user_id;
+    }
+
     /**
      * Determine whether the user can delete the model.
      */
