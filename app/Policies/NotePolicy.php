@@ -14,7 +14,7 @@ class NotePolicy
 
     public function forceDelete(User $user, Note $note)
     {
-        return $note->user_id == $user->id;
+        return $note->user_id == $user->id && $note->trashed();
     }
 
     public function update(User $user, Note $note)

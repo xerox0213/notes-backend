@@ -20,5 +20,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('/logout', [AuthController::class, 'logout'])->name('auth.logout');
     Route::apiResource("folders", FolderController::class)->only('index', 'destroy', 'update');
     Route::get('/notes/deleted', [SoftDeletedNoteController::class, 'index'])->name('notes-deleted.index');
+    Route::delete('/notes/deleted/{note}', [SoftDeletedNoteController::class, 'destroy'])->name('notes-deleted.destroy')->withTrashed();
     Route::apiResource('folders.notes', NoteController::class)->shallow();
 });
