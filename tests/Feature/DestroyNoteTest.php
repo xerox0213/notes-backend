@@ -19,7 +19,9 @@ class DestroyNoteTest extends TestCase
         $response = $this->actingAs($user)->deleteJson(route('notes.destroy', ['note' => $note->id]));
 
         $response->assertNoContent();
+        $note->refresh();
         $this->assertSoftDeleted($note);
+        $this->assertNull($note->folder);
     }
 
     public function test_should_note_soft_delete_if_user_does_not_own_the_note()
@@ -31,5 +33,6 @@ class DestroyNoteTest extends TestCase
 
         $response->assertForbidden();
         $this->assertNotSoftDeleted($note);
+        $this->assertNotNull($note->folder);
     }
 }

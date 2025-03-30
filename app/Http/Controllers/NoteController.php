@@ -46,6 +46,7 @@ class NoteController extends Controller
     public function destroy(Note $note)
     {
         Gate::authorize('delete', $note);
+        $note->update(['folder_id' => null]);
         $note->delete();
         return response()->noContent();
     }
