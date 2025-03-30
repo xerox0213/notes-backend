@@ -25,7 +25,7 @@ class StoreNoteTest extends TestCase
             ->actingAs($user)
             ->postJson(route('folders.notes.store', ['folder' => $folder->id]), $this->noteData);
 
-        $response->assertCreated()->assertJson(['title' => 'My long long...']);
+        $response->assertCreated()->assertJson(['title' => $this->noteData['title']]);
         $this->noteData['folder_id'] = $folder->id;
         $this->assertDatabaseHas('notes', $this->noteData);
     }
